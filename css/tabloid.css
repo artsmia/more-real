@@ -1,0 +1,52 @@
+#tabloid .generated { display: none; margin-left: -80%; }
+
+#tabloid .source {
+  position: relative
+}
+#headline {
+  position: absolute;
+  top: 0;
+  border: 1px solid #00a6fc;
+  width: 376px;
+  text-align: center;
+  margin: 111px 0 0 51px;
+  font: 50px impact, charcoal, sans-serif;
+  color: #fff;
+}
+
+.gallery figure, .gallery figure img {
+  display: inline;
+  max-width: 100px;
+}
+
+#tabloid button {
+  float: right;
+  margin-right: 1em;
+}
+#tabloid #upload {
+  margin-right: 1em;
+}
+
+#tabloid {
+  z-index: 2;
+  position: relative;
+}
+.tabloid-cover {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  visibility: hidden;
+  opacity: 0;
+  background: rgba(0, 0, 0, 0.5);
+  /* -webkit-filter: grayscale(0.7) blur(2px); */
+}
+.tabloid-active .tabloid-cover {
+  visibility: visible;
+  opacity: 1;
+}
+body.tabloid-active .icons {
+  display: none;
+}
