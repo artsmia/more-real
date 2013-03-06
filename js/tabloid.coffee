@@ -54,7 +54,7 @@ window.Tabloid =
 
   draw: (headline) ->
     $context.drawImage($cover_image[0], 0, 0)
-    headline ?= $("input").val()
+    headline ?= Tabloid.headline()
     $context.fillText(headline, 360, 167, 500)
 
   save: ->
@@ -109,9 +109,9 @@ window.activate_button = ->
 
 setup = ->
   Tabloid.init()
-  Tabloid.draw()
   Gallery.element $('.gallery')
   Gallery.populate()
+  Tabloid.draw()
 
   $p.on 'keyup', -> Tabloid.setHeadline($(@).html())
   activate_button()
