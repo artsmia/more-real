@@ -95,6 +95,55 @@ window.Tabloid = {
   },
   headline: function() {
     return $p.html();
+  },
+  debug: function() {
+    return $('#tabloid .generated').toggle();
+  }
+};
+
+window.S3 = {
+  sign_upload: function() {
+    return $.ajax({
+      url: 'signput.php',
+      data: {
+        name: this.name(),
+        type: 'image/png'
+      }
+    });
+  },
+  name: function() {
+    var date, slug;
+    date = (new Date()).toLocaleDateString();
+    slug = Tabloid.headline().toLowerCase().replace(/[^\w ]+/g, '').replace(/\s+/g, '-');
+    return date + '/' + slug + ".png";
+  },
+  data: function() {
+    return dataURItoBlob($canvas.toDataURL());
+  },
+  ajax: function() {
+    return this.sign_upload().done(function(url) {
+      console.log(decodeURIComponent(url));
+      return $.ajax(decodeURIComponent(url), {
+        type: 'PUT',
+        data: S3.data(),
+        crossDomain: true,
+        contentType: 'image/png',
+        processData: false,
+        xhrFields: {
+          withCredentials: true
+        }
+      });
+    });
+  },
+  upload: function() {
+    var deferred;
+    deferred = this.ajax();
+    deferred.error(function(response) {
+      return console.log('error: ', response);
+    });
+    return deferred.done(function(data) {
+      return console.log('done: ', data);
+    });
   }
 };
 

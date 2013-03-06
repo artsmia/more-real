@@ -1,0 +1,4 @@
+<?php
+$S3_KEY='keykeykeykeykeykeykeykey';
+$S3_SECRET='secretsecretsecretsecretsecret';
+?>

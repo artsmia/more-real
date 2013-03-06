@@ -69,6 +69,39 @@ window.Tabloid =
 
   headline: -> $p.html()
 
+  debug: -> $('#tabloid .generated').toggle()
+
+window.S3 =
+  sign_upload_url: -> $.ajax(url: 'signput.php', data: {name: @name(), type: 'image/png'})
+  put_upload: (url) ->
+    $.ajax decodeURIComponent(url),
+      type: 'PUT',
+      data: S3.data(),
+      crossDomain: true,
+      contentType: 'image/png',
+      processData: false,
+      xhrFields: {withCredentials: true}
+
+  name: ->
+    date = (new Date()).toLocaleDateString() # TODO: A better uid for the file on s3.
+    slug = Tabloid.headline().toLowerCase().replace(/[^\w ]+/g,'').replace(/\s+/g,'-')
+    date + '/' + slug + ".png"
+
+  data: -> dataURItoBlob($canvas.toDataURL())
+
+  ajax: ->
+    s3_upload = $.Deferred()
+    @sign_upload_url().then (url) ->
+      S3.put_upload(url).then \
+        (data, textStatus, jqXHR) -> s3_upload.resolve(jqXHR),
+        (jqXHR, textStatus, errorThrown) -> s3_upload.reject(jqXHR, textStatus, errorThrown)
+    s3_upload.promise()
+
+  upload: ->
+    @ajax().then \
+      (data) -> console.log 'done: ', data,
+      (error) ->  console.log 'error: ', error
+
 window.activate_button = ->
   window.$button = $('#tabloid button')
   $button.off 'click'
