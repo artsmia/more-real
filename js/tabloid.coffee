@@ -53,9 +53,15 @@ window.Tabloid =
     font
 
   draw: (headline) ->
+    Upload.drawImage($context) if Upload.file()
     $context.drawImage($cover_image[0], 0, 0)
     headline ?= Tabloid.headline()
     $context.fillText(headline, 360, 167, 500)
+
+  reset: ->
+    $canvas.width = $canvas.width # this clears the canvas somehow
+    $context.drawImage($cover_image[0], 0, 0)
+    @prepareCanvas()
 
   save: ->
     Gallery.push(@headline())
@@ -69,6 +75,33 @@ window.Tabloid =
   headline: -> $p.html()
 
   debug: -> $('#tabloid .generated').toggle()
+
+window.Upload =
+  files: -> $("#tabloid #upload")[0].files
+  file: -> @files()[0]
+
+  readImage: ->
+    _img = document.createElement('img')
+    reader = new FileReader()
+    deferred = $.Deferred()
+    reader.onload = (e) -> _img.src = e.target.result
+    reader.onerror = (e) -> deferred.reject(e)
+    _img.onload = (e) -> deferred.resolve(_img)
+    reader.readAsDataURL(@file())
+    deferred.promise()
+
+  replaceSourceImage: (img) ->
+    canvas = $('<canvas width="720px" height="846px">')[0]
+    context = canvas.getContext('2d')
+    context.drawImage($cover_image[0], 0, 0)
+    context.drawImage(img, 80, 454, 236, 236)
+    $(".source img")[0].src = canvas.toDataURL()
+
+  drawImage: (context=$context) ->
+    @readImage().done (img) ->
+      # draw `img` at coordinate 80,454 (x,y from top left), resized to 236x236
+      context.drawImage(img, 80, 454, 236, 236)
+      Upload.replaceSourceImage(img)
 
 window.S3 =
   sign_upload_url: -> $.ajax(url: 'signput.php', data: {name: @name(), type: 'image/png'})
@@ -110,7 +143,7 @@ setup = ->
   d = $(document)
   d.on 'click.tabloid', '#tabloid button', -> Tabloid.save()
   d.on 'keyup.tabloid', '#tabloid p', -> Tabloid.setHeadline(@.innerHTML)
-  d.on 'change.tabloid', '#tabloid input', -> Upload.drawImage()
+  d.on 'change.tabloid', '#tabloid input', -> Tabloid.draw()
 
 # this will fire once the required scripts have been loaded
 if require?
