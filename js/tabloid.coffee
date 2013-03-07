@@ -112,7 +112,8 @@ window.S3 =
       crossDomain: true,
       contentType: 'image/png',
       processData: false,
-      xhrFields: {withCredentials: true}
+      xhrFields: {withCredentials: true},
+      headers: {'x-amz-acl': 'public-read'}
 
   name: ->
     date = (new Date()).toLocaleDateString() # TODO: A better uid for the file on s3.

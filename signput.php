@@ -11,8 +11,7 @@
   $mimeType=$_GET['type'];
   $expires = time() + $EXPIRE_TIME;
   $amzHeaders= "x-amz-acl:public-read";
-  /* TODO: How do I set the acl to public? */
-  $stringToSign = "PUT\n\n$mimeType\n$expires\n$S3_BUCKET$objectName";
+  $stringToSign = "PUT\n\n$mimeType\n$expires\n$amzHeaders\n$S3_BUCKET$objectName";
   $sig = urlencode(base64_encode(hash_hmac('sha1', $stringToSign, $S3_SECRET, true)));
 
   $url = urlencode("$S3_URL$S3_BUCKET$objectName?AWSAccessKeyId=$S3_KEY&Expires=$expires&Signature=$sig");
