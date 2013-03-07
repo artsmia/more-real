@@ -751,11 +751,6 @@ a#backbutton{
 }
 a.page_turn{
 	cursor:pointer;
-	color:#000;
-	background-color:transparent;
-}
-a.page_turn:hover{
-	color:red;
 }
 #placard{
 	width:360px;
