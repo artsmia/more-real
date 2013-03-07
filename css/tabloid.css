@@ -66,4 +66,7 @@ body.tabloid-active .icons {
   color: rgba(12, 320, 241, .8)
 }
 
-#tabloid #social i { display: none; }
+#tabloid #social #work { display: none; }
+#tabloid #social.working #work { display: inline; }
+#tabloid #social.working a { display: none }
+#tabloid #social.working + button { display: none }

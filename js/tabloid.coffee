@@ -37,6 +37,7 @@ window.Tabloid =
   init: ->
     window.$p = $('#tabloid #headline')
     window.$cover_image = $('#tabloid .source img')
+    window.$social = $("#tabloid #social")
     @prepareCanvas()
 
   prepareCanvas: ->
@@ -71,7 +72,7 @@ window.Tabloid =
   setHeadline: (headline) ->
     $p.html(headline)
     @draw()
-    $('#social').data('url', null)
+    $social.data('url', null)
 
   headline: -> $p.html()
 
@@ -97,7 +98,7 @@ window.Upload =
     context.drawImage($cover_image[0], 0, 0)
     context.drawImage(img, 80, 454, 236, 236)
     $(".source img")[0].src = canvas.toDataURL()
-    $('#social').data('url', null)
+    $social.data('url', null)
 
   drawImage: (context=$context) ->
     @readImage().done (img) ->
@@ -139,7 +140,7 @@ window.S3 =
     deferred = $.Deferred()
     @ajax().then \
       (data) ->
-        $('#social').data('url', S3.src())
+        $social.data('url', S3.src())
         deferred.resolve(data)
     deferred.promise()
 
@@ -147,17 +148,21 @@ Share =
   init: (event, elem) ->
     @service = elem.href
     event.preventDefault()
-    if $('#social').data('url')
+    if $social.data('url')
       @open()
     else
       S3.upload().done (data) -> Share.init(event, elem)
+      @work()
 
   url: -> @service + 'http:' + S3.src()
 
   open: ->
+    $social.removeClass('working')
     window.open @url(),
       'intent',
       'scrollbars=yes,resizable=yes,toolbar=no,location=yes,width=550,height=420'
+
+  work: -> $social.addClass('working')
 
 setup = ->
   Tabloid.init()
