@@ -64,7 +64,7 @@ window.Tabloid =
 
   setHeadline: (headline) ->
     activate_button()
-    $('p').html(headline)
+    $p.html(headline)
     @draw()
 
   headline: -> $p.html()
