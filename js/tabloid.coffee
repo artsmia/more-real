@@ -138,27 +138,28 @@ window.S3 =
 
   upload: ->
     deferred = $.Deferred()
+    $social.data('url', S3.src())
     @ajax().then \
-      (data) ->
-        $social.data('url', S3.src())
-        deferred.resolve(data)
+      (data) -> deferred.resolve(data)
     deferred.promise()
 
 Share =
-  init: (event, elem) ->
+  init: (event, elem, url=undefined) ->
     @service = elem.href
     event.preventDefault()
-    if $social.data('url')
-      @open()
+    if url || $social.data('url')
+      @open(url)
     else
-      S3.upload().done (data) -> Share.init(event, elem)
+      url = Share.url()
+      S3.upload().done (data) -> Share.init(event, elem, url)
       @work()
 
   url: -> @service + 'http:' + S3.src()
 
-  open: ->
+  open: (url=undefined) ->
+    url ||= @url()
     $social.removeClass('working')
-    window.open @url(),
+    window.open url,
       'intent',
       'scrollbars=yes,resizable=yes,toolbar=no,location=yes,width=550,height=420'
 
