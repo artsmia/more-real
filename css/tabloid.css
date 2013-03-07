@@ -61,9 +61,11 @@ body.tabloid-active .icons {
 
 #tabloid #social a {
   color: #aaa;
+  padding: 0 0.25em;
 }
 #tabloid #social a:hover {
-  color: rgba(12, 320, 241, .8)
+  color: #ef3e33;
+  font-weight: 900;
 }
 
 #tabloid #social #work { display: none; }
