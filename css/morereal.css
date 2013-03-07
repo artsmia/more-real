@@ -678,6 +678,13 @@ hr{
 /* TURN.JS STUFF                */
 /* ============================ */
 
+#description {
+  position: relative;
+  z-index: 3;
+}
+.tabloid-active #description {
+  z-index: 0;
+}
 div#flipbook{
     width:960px;
 	left:-480px;
