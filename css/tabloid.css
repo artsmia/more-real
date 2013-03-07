@@ -19,7 +19,7 @@
   max-width: 100px;
 }
 
-#tabloid button {
+#tabloid .save {
   float: right;
   margin-right: 1em;
 }
@@ -50,3 +50,20 @@
 body.tabloid-active .icons {
   display: none;
 }
+
+#tabloid #social {
+  color: #aaa;
+}
+
+#tabloid #social {
+  display: inline-block;
+}
+
+#tabloid #social a {
+  color: #aaa;
+}
+#tabloid #social a:hover {
+  color: rgba(12, 320, 241, .8)
+}
+
+#tabloid #social i { display: none; }

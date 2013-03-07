@@ -71,6 +71,7 @@ window.Tabloid =
   setHeadline: (headline) ->
     $p.html(headline)
     @draw()
+    $('#social').data('url', null)
 
   headline: -> $p.html()
 
@@ -96,6 +97,7 @@ window.Upload =
     context.drawImage($cover_image[0], 0, 0)
     context.drawImage(img, 80, 454, 236, 236)
     $(".source img")[0].src = canvas.toDataURL()
+    $('#social').data('url', null)
 
   drawImage: (context=$context) ->
     @readImage().done (img) ->
@@ -120,6 +122,9 @@ window.S3 =
     slug = Tabloid.headline().toLowerCase().replace(/[^\w ]+/g,'').replace(/\s+/g,'-')
     date + '/' + slug + ".png"
 
+  src: ->
+    "//more-real-tabloid.s3.amazonaws.com/#{@name()}"
+
   data: -> dataURItoBlob($canvas.toDataURL())
 
   ajax: ->
@@ -131,9 +136,28 @@ window.S3 =
     s3_upload.promise()
 
   upload: ->
+    deferred = $.Deferred()
     @ajax().then \
-      (data) -> console.log 'done: ', data,
-      (error) ->  console.log 'error: ', error
+      (data) ->
+        $('#social').data('url', S3.src())
+        deferred.resolve(data)
+    deferred.promise()
+
+Share =
+  init: (event, elem) ->
+    @service = elem.href
+    event.preventDefault()
+    if $('#social').data('url')
+      @open()
+    else
+      S3.upload().done (data) -> Share.init(event, elem)
+
+  url: -> @service + 'http:' + S3.src()
+
+  open: ->
+    window.open @url(),
+      'intent',
+      'scrollbars=yes,resizable=yes,toolbar=no,location=yes,width=550,height=420'
 
 setup = ->
   Tabloid.init()
@@ -143,6 +167,7 @@ setup = ->
 
   d = $(document)
   d.on 'click.tabloid', '#tabloid button', -> Tabloid.save()
+  d.on 'click.tabloid', '#tabloid #social a', (e) -> Share.init(e, @)
   d.on 'keyup.tabloid', '#tabloid p', -> Tabloid.setHeadline(@.innerHTML)
   d.on 'change.tabloid', '#tabloid input', -> Tabloid.draw()
 
