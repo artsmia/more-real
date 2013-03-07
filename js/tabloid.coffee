@@ -63,7 +63,6 @@ window.Tabloid =
     Gallery.isotope()
 
   setHeadline: (headline) ->
-    activate_button()
     $p.html(headline)
     @draw()
 
@@ -102,19 +101,16 @@ window.S3 =
       (data) -> console.log 'done: ', data,
       (error) ->  console.log 'error: ', error
 
-window.activate_button = ->
-  window.$button = $('#tabloid button')
-  $button.off 'click'
-  $button.on 'click', -> Tabloid.save()
-
 setup = ->
   Tabloid.init()
   Gallery.element $('.gallery')
   Gallery.populate()
   Tabloid.draw()
 
-  $p.on 'keyup', -> Tabloid.setHeadline($(@).html())
-  activate_button()
+  d = $(document)
+  d.on 'click.tabloid', '#tabloid button', -> Tabloid.save()
+  d.on 'keyup.tabloid', '#tabloid p', -> Tabloid.setHeadline(@.innerHTML)
+  d.on 'change.tabloid', '#tabloid input', -> Upload.drawImage()
 
 # this will fire once the required scripts have been loaded
 if require?

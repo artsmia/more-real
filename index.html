@@ -117,10 +117,10 @@
             <section class="source">
               <div>
                 <img src="images/tabloid.png">
-                <p id="headline" contenteditable="true" onkeyup="Tabloid.setHeadline(this.innerHTML)">Art is Over. Zoos are in!</p>
+                <p id="headline" contenteditable="true">Art is Over. Zoos are in!</p>
               </div>
-              <input id="upload" type="file" onchange="Upload.drawImage()">
-              <button onclick="Tabloid.save()">Save</button>
+              <input id="upload" type="file">
+              <button>Save</button>
           </div>
         </div><!-- flipbook -->
         <div id="tabloid-canvas" class="generated">
@@ -193,7 +193,6 @@
 
   <script type="text/javascript" src="js/turn.min.js" ></script>
   <script type="text/javascript">
-    // These preventDefaults block event bubbling and break $p and button events>?
     $(document).ready(function() {
       var copyheight = $(".tabloid_copy").height();
       $("#flipbook").turn({
