@@ -720,6 +720,38 @@ hr{
 	clear:both;
 }
 
+.press{
+	padding:0 0.75em;
+	margin:2em 0;
+}
+
+.press h3{
+	font-size:1.5em;
+	padding:0;
+	margin-top:1em;
+}
+
+.press h3 span{
+	font-weight:300;
+	font-size:smaller;
+}
+
+.press li a {
+	color:#4caf45;
+	background-color:yellow;
+	padding:0 4px;
+	-webkit-transition: color 250ms linear;
+	-moz-transition: color 250ms linear;
+	-ms-transition: color 250ms linear;
+	-o-transition: color 250ms linear;
+	transition: color 250ms linear;
+}
+
+.press li a:hover {
+	color:#ef3e33;
+	font-weight:900;
+}
+
 
 /*end waypoints*/
 
