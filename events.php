@@ -38,16 +38,19 @@
 			<div class="threecol">
 				<ul class="navL">
 					<li><a href="index.html#about">About the Exhibition</a></li>
+                    <li><a href="press.html">In the Press</a></li>
 					<li><a href="preview.html">Exhibition Preview</a></li>
 				</ul>
 			</div>
 			<div class="sixcol">
-				<a href="index.html"><img src="images/MR-title.png" alt="More Real? Art in the Age of Truthiness" /></a>
+				<img src="images/MR-title.png" alt="More Real? Art in the Age of Truthiness" />
 				<span class="subhead">ART IN THE AGE OF TRUTHINESS</span>
+				<span class="dates">Site Santa Fe July 8, 2012&#8212;January 6, 2013<br />Minneapolis Institute of Arts March 21&#8212;June 9, 2013</span>
 			</div>
 			<div class="threecol last">
 				<ul class="navR">
-					<li><a href="events.php">Tickets &amp; Events</a></li>
+			<li><a href="events.php">Tickets</a></li>
+					<li><a href="events.php#events">Events</a><span style="color:#4caf45; font-style:italic;"> &amp; </span><a href="events.php#programs">Programs</a></li>
 					<li><a href="index.html#catalogue">Catalogue</a></li>
 				</ul>
 			</div>
@@ -69,10 +72,7 @@
 				</p>
 			</div>	
 		</div>
-		<div class="row trans_box white_gradient1 clearfix" id="about">
-			<h5 class="section-title">Events</h5>
-			<?php get_events(); ?>	
-		</div>
+		<?php get_events(); ?>
 	</div><!-- container -->
 	<nav>
 		<ul>

@@ -109,7 +109,7 @@
 				};
 		};
 
-function get_events($GR_ID)
+function get_events()
 	{
     	global $GR_ID;
 		$event_sql = "SELECT *, CONVERT(StartDateTime, char) AS start, CONVERT(EndDateTime, char) AS end_dt FROM mysql_web_db.events INNER JOIN mysql_web_db.instance ON instance.EV_ID = events.EV_ID INNER JOIN mysql_web_db.gr_ev G ON g.EV_ID = events.EV_ID WHERE g.GR_ID = '435' AND Instance.StartDateTime > CURRENT_TIMESTAMP() ORDER BY Instance.StartDateTime ASC, Instance.IN_ID";
@@ -156,47 +156,100 @@ function get_events($GR_ID)
 				$events[$event_id]['instancecount'] = $instancecount;
 				unset($instancecount);
 			};
-			
+
+		//EVENTS
+		echo "<div class='row trans_box white_gradient1 clearfix' id='events'><h5 class='section-title'>Events</h5>";
 		foreach($events as $event_id => $instance)
 		// Build the page using the data pulled and formatted above
 			{
-				$listed_events[] = 'init';
-				if(!in_array($event_id,$listed_events))
+				if($events[$event_id]['ev_type'] != 'Youth Program')
+				{
+					$listed_events[] = 'init';
+					if(!in_array($event_id,$listed_events))
+						{
+							$listed_events[] = $event_id;
+							echo "<div class='fourcol ev_info'>";
+							echo "<div class='event callout'>";
+							echo "<h3>".$events[$event_id]['ev_type']."</h3>";
+							echo "<p class='ev_date'>";
+							$found_instances = explode(',',$events[$event_id]['instances']);
+							get_times($event_id,$found_instances,$events[$event_id]['instancecount']);
+							//echo '
+							//<br />';
+						};
+					// If you don't want descriptions and such, use the following code:
+					/*
+					echo '<p><a href="/index.php?section_id=9&ev_id=' . $event_id . '">more &raquo;</a></p>';
+					*/
+					// Comment out the following lines if you don't want the event description:
+					///*
+					echo "</p>";
+					if($events[$event_id]['location'])
 					{
-						$listed_events[] = $event_id;
-						echo "<div class='fourcol ev_info'>";
-						echo "<div class='event callout'>";
-						echo "<h3>".$events[$event_id]['ev_type']."</h3>";
-						echo "<p class='ev_date'>";
-						$found_instances = explode(',',$events[$event_id]['instances']);
-						get_times($event_id,$found_instances,$events[$event_id]['instancecount']);
-						//echo '
-						//<br />';
-					};
-				// If you don't want descriptions and such, use the following code:
-				/*
-				echo '<p><a href="/index.php?section_id=9&ev_id=' . $event_id . '">more &raquo;</a></p>';
-				*/
-				// Comment out the following lines if you don't want the event description:
-				///*
-				echo "</p>";
-				if($events[$event_id]['location'])
-				{
-					echo "<p class='location'>".$events[$event_id]['location']."</p>";
-				}
-				echo "</div></div><div class='eightcol last ev_desc'>";
-				echo "<h2>".$events[$event_id]['ev_title']."</h2>";
-				if($events[$event_id]['description'])
-				{
-					echo $events[$event_id]['description'] . "<br />"; 
-				}
-				echo "</div><hr />"; //end event div
-				$has_content = 1;
-			};
+						echo "<p class='location'>".$events[$event_id]['location']."</p>";
+					}
+					echo "</div></div><div class='eightcol last ev_desc'>";
+					echo "<h2>".$events[$event_id]['ev_title']."</h2>";
+					if($events[$event_id]['description'])
+					{
+						echo $events[$event_id]['description'] . "<br />";
+					}
+					echo "</div><hr />"; //end event div
+					$has_content = 1;
+				};
+			}
 		if(!$has_content)
 			{
 				echo "<p>There are no more events scheduled related to <i>" . $exhibition_title . "</i>.</p>";
 			};
+		echo "</div>";
+
+		// YOUTH PROGRAMS
+		echo "<div class='row trans_box white_gradient1 clearfix' id='programs'><h5 class='section-title'>Youth Programs</h5>";
+foreach($events as $event_id => $instance)
+		// Build the page using the data pulled and formatted above
+			{
+				if($events[$event_id]['ev_type'] == 'Youth Program')
+				{
+					$listed_events[] = 'init';
+					if(!in_array($event_id,$listed_events))
+						{
+							$listed_events[] = $event_id;
+							echo "<div class='fourcol ev_info'>";
+							echo "<div class='event callout'>";
+							echo "<h3>".$events[$event_id]['ev_type']."</h3>";
+							echo "<p class='ev_date'>";
+							$found_instances = explode(',',$events[$event_id]['instances']);
+							get_times($event_id,$found_instances,$events[$event_id]['instancecount']);
+							//echo '
+							//<br />';
+						};
+					// If you don't want descriptions and such, use the following code:
+					/*
+					echo '<p><a href="/index.php?section_id=9&ev_id=' . $event_id . '">more &raquo;</a></p>';
+					*/
+					// Comment out the following lines if you don't want the event description:
+					///*
+					echo "</p>";
+					if($events[$event_id]['location'])
+					{
+						echo "<p class='location'>".$events[$event_id]['location']."</p>";
+					}
+					echo "</div></div><div class='eightcol last ev_desc'>";
+					echo "<h2>".$events[$event_id]['ev_title']."</h2>";
+					if($events[$event_id]['description'])
+					{
+						echo $events[$event_id]['description'] . "<br />";
+					}
+					echo "</div><hr />"; //end event div
+					$has_content = 1;
+				};
+			}
+		if(!$has_content)
+			{
+				echo "<p>There are no more events scheduled related to <i>" . $exhibition_title . "</i>.</p>";
+			};
+		echo "</div>";
 			
 	}; 
 
