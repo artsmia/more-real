@@ -688,6 +688,37 @@ blockquote:last-child{
 .icons {
 	cursor:pointer;
 }
+.ev_info{
+	clear:both;
+	margin-bottom:2em;
+}
+.ev_info .ev_date{
+	text-align:left;
+	text-indent:0px;
+	padding-bottom:0px;
+}
+.ev_info .location{
+	padding-bottom:0px;
+}
+.ev_info h3, .ev_info p{
+	padding:0 0 0 1em;
+}
+.ev_desc{
+	padding-top:1em;
+	margin-bottom:2em;
+	font-size:1.2em;
+	line-height:1.3em;
+}
+.ev_desc h2{
+	padding-left:0px;
+}
+hr{
+	border-bottom:thin solid #000;
+	border-top:none;
+	margin-bottom:2em;
+	max-width:90%;
+	clear:both;
+}
 
 
 /*end waypoints*/
