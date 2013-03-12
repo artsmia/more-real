@@ -55,6 +55,9 @@
 		</div>
 		<div class="row trans_box white_gradient1 clearfix" id="about">
 			<h5 class="section-title">About the Exhibition</h5>
+			<div class="twelvecol" style="padding:0 0.75em;margin-bottom:2em;">
+				<div id="promovid" style="margin:0 auto;text-align:center;padding-right:1.5em;"><iframe style="border:1px solid #ccc;" src="http://player.vimeo.com/video/44136974?portrait=0&amp;color=4caf45" width="800" height="450" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
+			</div>
 			<div class="sixcol">
 				<h1>Seeing is Disbelieving</h1>
 				<p style="text-indent:4em;">Over the past century, a period of unprecedented technological change and global social upheaval, once agreed-upon beliefs, or &#8220;truths,&#8221; have been cast into doubt, changing and shaping our understanding and experience of reality. <em>More Real? Art in the Age of Truthiness</em> features work by 28 of today's most accomplished and promising international artists, including Ai Weiwei, Vik Muniz and Thomas Demand, who explore our shifting experience of reality.</p>
@@ -118,9 +121,12 @@
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="js/jquery.scrollTo.js"></script>
   	<script type="text/javascript" src="js/jquery.localScroll.js"></script>
-  	<script type="text/javascript" src="js/waypoints.min.js"></script>  	
+	<script type="text/javascript" src="js/waypoints.min.js"></script>
+	<script type="text/javascript" src="js/jquery.fitvids.min.js"></script>
 	<script type="text/javascript">;
 		$(document).ready(function(){
+
+			$("#promovid").fitVids();
 
 			$('#nav').localScroll({
 				hash:true,
