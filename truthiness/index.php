@@ -15,7 +15,7 @@
     function add_tabloid(snap) {
       if(snap.val() == null || snap.val().cover == undefined) { // don't show until the image has been uploaded
       } else {
-        fig = $('<figure><img src="' + snap.val().cover + '"></figure>')
+        fig = $('<figure><a href="tabloid.php?id=' + snap.name() + '"><img src="' + snap.val().cover + '"></a></figure>')
         $("#gallery").prepend(fig)
       }
     }
