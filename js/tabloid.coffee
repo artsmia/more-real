@@ -12,8 +12,17 @@ window.LocalStorage =
     store = LocalStorage.get()
     store.push(headline)
     localStorage.setItem('headlines', JSON.stringify(store))
+    FirebaseStorage.push(headline)
 
   clear: -> localStorage.setItem('headlines', JSON.stringify([]))
+
+window.FirebaseStorage =
+  base: 'https://more-real.firebaseio.com/'
+  tabloids: -> new Firebase(@base + 'tabloids')
+
+  push: (headline) ->
+    (ref = @tabloids().push()).set({headline: headline})
+    S3.upload_and_update_firebase(ref)
 
 window.Gallery =
   element: (e) -> @gallery = e
@@ -141,6 +150,13 @@ window.S3 =
     $social.data('url', S3.src())
     @ajax().then \
       (data) -> deferred.resolve(data)
+    deferred.promise()
+
+  upload_and_update_firebase: (ref) ->
+    deferred = $.Deferred()
+    @upload().done ->
+      ref.update({cover: S3.src()})
+      deferred.resolve
     deferred.promise()
 
 Share =
