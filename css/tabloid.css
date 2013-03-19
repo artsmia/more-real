@@ -1,4 +1,6 @@
-#tabloid .generated { display: none; margin-left: -80%; }
+#tabloid .generated, #tabloid .generated canvas {
+  max-width: 100%
+}
 
 #tabloid .source {
   position: relative
@@ -19,13 +21,21 @@
   max-width: 100px;
 }
 
-#tabloid .save {
+#tabloid .p4 h2 {
+  text-align: center;
+  margin: 1em 0 0 0;
+}
+#tabloid .p3 .save {
   float: right;
   margin-right: 1em;
 }
-#tabloid #upload {
-  margin-right: 1em;
+#tabloid .p4 .save {
+  margin: -2em auto 0 auto;
+  width: 317px;
+  text-align: center;
 }
+#tabloid .save p:first-child { text-indent: 0; }
+#tabloid #upload { margin-left: 1em; }
 
 #tabloid {
   z-index: 2;

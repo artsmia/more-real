@@ -97,14 +97,15 @@
 
       <div id="tabloid" class="sixcol last">
         <div id="flipbook" class="clearfix">
-          <div class="page">
+          <div class="page page1">
             <img src="images/tabloid_mockup1.jpg" />
             <h1>Write your own reality</h1>
             <p>
             <a class="page_turn">Click here</a> to make your own version of the alternate-reality tabloid TRUTHINESS.
             </p>
-          </div><!-- page -->
-          <div class="page">
+          </div>
+
+          <div class="page page2">
             <div class="tabloid_copy">
               <h1>Write your own reality</h1>
               <p>What is real? How do you define real? If you're talking about what you can feel, what you can smell, what you can taste and see, then real is simply electrical signals interpreted by your brain. This is the world that you know. The world as it was at the end of the twentieth century. It exists now only as part of a neural-interactive simulation that we call the Matrix.</p>
@@ -114,8 +115,9 @@
               <div id="container" class="gallery">
               </div><!-- container -->
             </div><!-- tabloid_thumbs -->
-          </div><!-- page -->
-          <div class="page">
+          </div>
+
+          <div class="page page3">
             <section class="source">
               <div>
                 <img src="images/tabloid.png">
@@ -123,23 +125,31 @@
               </div>
               <input id="upload" type="file">
               <div class="save">
-                <div id="social">
-                  <span id="work"><i class="icon-refresh icon-spin"></i> uploading image…</span>
-                  <a href="//twitter.com/intent/tweet?text=" class="icon-twitter"></a>
-                  <a href="//www.facebook.com/sharer/sharer.php?u=" class="icon-facebook"></a>
-                  <a href="//plus.google.com/share?url=" class="icon-google-plus"></a>
-                  <!-- <i class="icon-pinterest"></i> -->
-                  <!-- <i class="icon-flickr"></i> -->
-                </div>
-                <button>Save</button>
+                <button>Save and share</button>
               </div>
               <p id="link"></p>
             </section>
           </div>
+          <div class="page page4">
+            <div id="tabloid-canvas" class="generated">
+              <canvas width="720px" height="846px"></canvas>
+            </div>
+            <div class="save">
+              <h2>Hot off the Presses!</h2>
+              <p>Share your tabloid with:</p>
+              <div id="social">
+                <span id="work"><i class="icon-refresh icon-spin"></i> uploading image…</span>
+                <a href="//twitter.com/intent/tweet?text=" class="icon-twitter"></a>
+                <a href="//www.facebook.com/sharer/sharer.php?u=" class="icon-facebook"></a>
+                <a href="//plus.google.com/share?url=" class="icon-google-plus"></a>
+                <a href="//pinterest.com/pin/create/button/?url=" class="icon-pinterest"></a>
+                <!-- <i class="icon-flickr"></i> -->
+              </div>
+              <p><a onclick="$('#flipbook').turn('previous'); return false;">Back</a></p>
+            </div>
+          </div>
+          <div class="page page5">(Gallery goes here)</div>
         </div><!-- flipbook -->
-        <div id="tabloid-canvas" class="generated">
-          <canvas width="720px" height="846px"></canvas>
-        </div>
       </div><!-- #tabloid sixcol -->
       <div id="under-tabloid-overlay" class="tabloid-cover"></div>
 		</div>
@@ -190,45 +200,30 @@
   <script type="text/javascript">
     $(document).ready(function() {
       var copyheight = $(".tabloid_copy").height();
-      $("#flipbook").turn({
-        autoCenter: false,
-        width: 960,
-        height: 715
-      });
+      $flip = $("#flipbook");
+      $flip.turn({autoCenter: false, width: 960, height: 715});
+
       var thumbheight = 715 - 70 - copyheight;
-      $("#flipbook").bind("turning", function() {
+      $flip.bind("turning", function() {
         $(".tabloid_thumbs").height(thumbheight);
         $("#container").fadeIn();
-        Gallery.isotope()
-        $body.toggleClass('tabloid-active');
+        Gallery.isotope();
+        $body.addClass('tabloid-active');
       });
-      $('#backbutton').click(function(e) {
-        e.preventDefault();
-        $("#flipbook").turn("previous");
+      $flip.bind("first", function() {
+        console.log("first page");
+        $body.removeClass('tabloid-active');
       });
 
       var $body = $('body');
       var page;
       $('.page_turn').click(function(e) {
         e.preventDefault();
-        if(page == 3) {
-          $("#flipbook").turn("previous");
-          page = 1;
-        } else {
-          $("#flipbook").turn("next");
-          page = 3;
-          $("#container").fadeIn();
-        }
-      });
-      $('.element').click(function(e) {
-        e.preventDefault();
-        var url = $(this).attr('src');
-        $('#featured_tabloid').attr('src', url);
-        $('#headline').text('New Headline');
-        $('#byline').text('Created by Someone Else');
+        activateTabloid();
       });
     });
-    if(window.location.hash == '#tabloid') setTimeout(function() { $("#flipbook").turn("next"); }, 3000);
+    function activateTabloid() { $flip.turn("next"); }
+    if(window.location.hash == '#tabloid') setTimeout(activateTabloid, 3000);
 	</script>
 	<script type="text/javascript" src="js/jquery.scrollTo.js"></script>
   	<script type="text/javascript" src="js/jquery.localScroll.js"></script>
