@@ -21,8 +21,14 @@ window.FirebaseStorage =
   tabloids: -> new Firebase(@base + 'tabloids')
 
   push: (headline) ->
+    d = $.Deferred()
+    Share.work()
     (ref = @tabloids().push()).set({headline: headline})
-    S3.upload_and_update_firebase(ref)
+    S3.upload_and_update_firebase(ref).done ->
+      d.resolve(ref)
+      $social.removeClass('working')
+      $('p#link').html(ref.name())
+    d.promise()
 
 window.Gallery =
   element: (e) -> @gallery = e
@@ -156,7 +162,7 @@ window.S3 =
     deferred = $.Deferred()
     @upload().done ->
       ref.update({cover: S3.src()})
-      deferred.resolve
+      deferred.resolve()
     deferred.promise()
 
 Share =
@@ -167,10 +173,11 @@ Share =
       @open(url)
     else
       url = Share.url()
-      S3.upload().done (data) -> Share.init(event, elem, url)
+      FirebaseStorage.push(Tabloid.headline()).done (fb_ref) ->
+        Share.init(event, elem, url + fb_ref.name())
       @work()
 
-  url: -> @service + 'http:' + S3.src()
+  url: -> @service + window.location.hostname + '/artsmia.org/more-real/truthiness/tabloid.php?id='
 
   open: (url=undefined) ->
     url ||= @url()
