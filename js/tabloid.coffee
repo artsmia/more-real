@@ -78,8 +78,8 @@ window.Tabloid =
     $context.font = @font()
 
   font: ->
-    font = $p.css('font') # this doesn't work in firefox, so ↓
-    font = $p.css('font-size') + " " + $p.css('font-family') if font == ""
+    size = parseInt($p.css('font-size'))*1.5 + 'px'
+    font = size + " " + $p.css('font-family')
     font
 
   draw: (headline) ->
