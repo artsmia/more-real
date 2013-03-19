@@ -114,12 +114,17 @@ window.Tabloid =
     LocalStorage.push(@headline())
     Gallery.isotope()
 
+  strip: (html) ->
+    tmp = document.createElement("DIV")
+    tmp.innerHTML = html
+    tmp.textContent||tmp.innerText
+
   setHeadline: (headline) ->
-    $p.html(headline)
+    $p.html(@strip(headline).replace(/\n/, ''))
     @draw()
     $social.data('url', null)
 
-  headline: -> $p.html()
+  headline: -> $p.text()
 
   debug: -> $('#tabloid .generated').toggle()
   flip: -> $('#flipbook').turn('next')
