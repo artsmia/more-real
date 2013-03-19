@@ -178,7 +178,7 @@ Share =
         Share.init(event, elem, url + fb_ref.name())
       @work()
 
-  url: -> @service + window.location.hostname + '/artsmia.org/more-real/truthiness/tabloid.php?id='
+  url: -> @service + window.location.hostname + '/more-real/truthiness/tabloid.php?id='
 
   open: (url=undefined) ->
     url ||= @url()
