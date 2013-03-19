@@ -82,11 +82,27 @@ window.Tabloid =
     font = size + " " + $p.css('font-family')
     font
 
+  line_count: -> $p.height()/61
+
+  # This wrapping fails for extremely long words, but I don't care?
+  wrap_text: (ctx, headline, x, y, maxWidth, lineHeight) ->
+    words = headline.split(' ')
+    line = ''
+    for word in words
+      newLine = "#{line} #{word}"
+      if ctx.measureText(newLine).width > maxWidth
+        ctx.fillText(line, x, y, maxWidth)
+        line = word + ' '
+        y += lineHeight
+      else
+        line = newLine
+    ctx.fillText(line, x, y, maxWidth)
+
   draw: (headline) ->
     Upload.drawImage($context) if Upload.file()
     $context.drawImage($cover_image[0], 0, 0)
     headline ?= Tabloid.headline()
-    $context.fillText(headline, 360, 167, 500)
+    Tabloid.wrap_text($context, headline, 360, 167, 555, 71)
 
   reset: ->
     $canvas.width = $canvas.width # this clears the canvas somehow
