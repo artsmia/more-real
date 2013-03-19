@@ -30,6 +30,18 @@ window.FirebaseStorage =
       $('p#link').html(ref.name())
     d.promise()
 
+  gallery_init: (per_page=20) ->
+    tabloidRef = new Firebase('https://more-real.firebaseio.com/tabloids')
+    tabloidRef.limit(per_page).on('child_added', FirebaseStorage.add_tabloid)
+    tabloidRef.limit(per_page).on('child_changed', FirebaseStorage.add_tabloid)
+
+  add_tabloid: (snap) ->
+    $gallery = $("#gallery")
+    if snap.val() && snap.val().cover
+      return if $gallery.find("a[href*=#{snap.name()}]").length
+      fig = $("""<figure><a href="tabloid.php?id=#{snap.name().replace(/\s/, '')}"><img src="#{snap.val().cover}"></a></figure>""")
+      $gallery.prepend(fig)
+
 window.Gallery =
   element: (e) -> @gallery = e
   push: (headline) ->
@@ -39,6 +51,7 @@ window.Gallery =
     @gallery.prepend(_new)
 
   populate: ->
+    return # Superseeded by FirebaseStorage.gallery_init
     Gallery.push(headline) for headline in LocalStorage.get()
 
   enableIsotope: false
@@ -50,6 +63,7 @@ window.Gallery =
 
 window.Tabloid =
   init: ->
+    return unless $('canvas').length
     window.$p = $('#tabloid #headline')
     window.$cover_image = $('#tabloid .source img')
     window.$social = $("#tabloid #social")
@@ -202,9 +216,5 @@ setup = ->
   d.on 'change.tabloid', '#tabloid input', -> Tabloid.draw()
 
 # this will fire once the required scripts have been loaded
-if require?
-  require js, ->
-    $ -> setup()
-else
-  $ ->
-    setup()
+$ ->
+  setup() if $('canvas').length

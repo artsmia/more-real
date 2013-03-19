@@ -34,7 +34,7 @@
   width: 317px;
   text-align: center;
 }
-#tabloid .save p:first-child { text-indent: 0; }
+#tabloid .save p { text-indent: 0; padding-bottom: 0; }
 #tabloid #upload { margin-left: 1em; }
 
 #tabloid {
@@ -100,3 +100,7 @@ aside { text-align: center; margin: 1em; }
 }
 
 #gallery figcaption { display: none; }
+
+#tabloid .p5 #gallery { width: 100%; float: none; min-height: 0; }
+#tabloid .p5 #gallery figure { width: 33%; }
+#tabloid .p5 p { text-align: center; }

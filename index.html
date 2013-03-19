@@ -111,10 +111,6 @@
               <p>What is real? How do you define real? If you're talking about what you can feel, what you can smell, what you can taste and see, then real is simply electrical signals interpreted by your brain. This is the world that you know. The world as it was at the end of the twentieth century. It exists now only as part of a neural-interactive simulation that we call the Matrix.</p>
               <p style="padding-bottom:0px;"><strong>Click the tabloid to write your own headline!</strong></p>
             </div>
-            <div class="tabloid_thumbs">
-              <div id="container" class="gallery">
-              </div><!-- container -->
-            </div><!-- tabloid_thumbs -->
           </div>
 
           <div class="page page3">
@@ -148,7 +144,11 @@
               <p><a onclick="$('#flipbook').turn('previous'); return false;">Back</a></p>
             </div>
           </div>
-          <div class="page page5">(Gallery goes here)</div>
+          <div class="page page5">
+            <section id="gallery"></section>
+            <p><a href="/more-real/truthiness/">See More Tabloids</a></p>
+            <script>$(function() { FirebaseStorage.gallery_init(9) })</script>
+          </div>
         </div><!-- flipbook -->
       </div><!-- #tabloid sixcol -->
       <div id="under-tabloid-overlay" class="tabloid-cover"></div>

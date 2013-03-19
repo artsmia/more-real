@@ -14,6 +14,7 @@
     <title>Truthiness! - More Real - Minneapolis Institute of Arts</title>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.firebase.com/v0/firebase.js"></script>
+    <script type="text/javascript" src="/more-real/js/tabloid.js"></script>
   </head>
   <body>
     <aside>
@@ -27,22 +28,7 @@
       <h1>Write your own reality</h1>
       <p>What is real? How do you define real? If you're talking about what you can feel, what you can smell, what you can taste and see, then real is simply electrical signals interpreted by your brain. This is the world that you know. The world as it was at the end of the twentieth century. It exists now only as part of a neural-interactive simulation that we call the Matrix.</p>
     </aside>
-    <section id="gallery">
-    </section>
-
-    <script>
-    function add_tabloid(snap) {
-      if(snap.val() == null || snap.val().cover == undefined) { // don't show until the image has been uploaded
-      } else {
-        fig = $('<figure><a href="tabloid.php?id=' + snap.name() + '"><img src="' + snap.val().cover + '"></a></figure>')
-        $("#gallery").prepend(fig)
-      }
-    }
-
-    var per_page = 20
-    var tabloidRef = new Firebase('https://more-real.firebaseio.com/tabloids')
-    tabloidRef.limit(per_page).on('child_added', add_tabloid)
-    tabloidRef.limit(per_page).on('child_changed', add_tabloid)
-    </script>
+    <section id="gallery"></section>
+    <script>$(function() { FirebaseStorage.gallery_init() })</script>
   </body>
 </html>
