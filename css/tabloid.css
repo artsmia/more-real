@@ -72,3 +72,21 @@ body.tabloid-active .icons {
 #tabloid #social.working #work { display: inline; }
 #tabloid #social.working a { display: none }
 #tabloid #social.working + button { display: none }
+
+/** === truthiness/ === **/
+#gallery figure { width: 50%; float: left }
+#gallery figure img { max-width: 100%; }
+aside { text-align: center; margin: 1em; }
+@media screen and (min-width: 45em) {
+  #gallery figure { width: 33%; }
+  #gallery { width: 70%; float: left; background: white; min-height: 100% }
+  aside { width: 25%; float: right; position: fixed; right: 0; margin: 1em 2% 0 0; }
+  aside .navL { padding-top: none; }
+  aside h1 { padding-top: 1em }
+
+  @media screen and (min-width: 65em) {
+    #gallery figure { width: 25%; }
+  }
+}
+
+#gallery figcaption { display: none; }
