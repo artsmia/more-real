@@ -99,6 +99,11 @@ aside { text-align: center; margin: 1em; }
   }
 }
 
+figure#gallery img {
+  max-width: 720px;
+  display: table-cell;
+  margin: 0 auto;
+}
 #gallery figcaption { display: none; }
 
 #tabloid .p5 #gallery { width: 100%; float: none; min-height: 0; }
