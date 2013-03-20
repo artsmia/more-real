@@ -15,10 +15,19 @@
   font: 50px impact, charcoal, sans-serif;
   color: #fff;
 }
+#tabloid .source img#blank { display: none; }
 
 .gallery figure, .gallery figure img {
   display: inline;
   max-width: 100px;
+}
+
+#tabloid .p2 #images {
+  margin: 1em;
+}
+#tabloid .p2 #images img {
+  max-width: 30%;
+  display: inline;
 }
 
 #tabloid .p4 h2 {
@@ -102,7 +111,6 @@ aside { text-align: center; margin: 1em; }
 figure#gallery img {
   max-width: 720px;
   display: table-cell;
-  margin: 0 auto;
 }
 #gallery figcaption { display: none; }
 

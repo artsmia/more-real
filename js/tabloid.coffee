@@ -98,14 +98,15 @@ window.Tabloid =
         line = newLine
     ctx.fillText(line, x, y, maxWidth)
 
-  draw: (headline) ->
-    Upload.drawImage($context) if Upload.file()
+  draw: (headline, image=true) ->
+    Upload.drawImage($context) if Upload.file() && image
     $context.drawImage($cover_image[0], 0, 0)
     headline ?= Tabloid.headline()
     Tabloid.wrap_text($context, headline, 360, 167, 555, 71)
 
   reset: ->
     $canvas.width = $canvas.width # this clears the canvas somehow
+    $cover_image[0].src = "images/tabloid.png"
     $context.drawImage($cover_image[0], 0, 0)
     @prepareCanvas()
 
@@ -151,11 +152,17 @@ window.Upload =
     $(".source img")[0].src = canvas.toDataURL()
     $social.data('url', null)
 
-  drawImage: (context=$context) ->
-    @readImage().done (img) ->
-      # draw `img` at coordinate 80,454 (x,y from top left), resized to 236x236
+  drawImage: (context=$context, img) ->
+    Tabloid.reset()
+    Tabloid.draw(null, false)
+    if img
       context.drawImage(img, 80, 454, 236, 236)
       Upload.replaceSourceImage(img)
+    else
+      @readImage().done (img) ->
+        # draw `img` at coordinate 80,454 (x,y from top left), resized to 236x236
+        context.drawImage(img, 80, 454, 236, 236)
+        Upload.replaceSourceImage(img)
 
 window.S3 =
   sign_upload_url: -> $.ajax(url: 'signput.php', data: {name: @name(), type: 'image/png'})
@@ -235,6 +242,7 @@ setup = ->
   d.on 'click.tabloid', '#tabloid #social a', (e) -> Share.init(e, @)
   d.on 'keyup.tabloid', '#tabloid p', -> Tabloid.setHeadline(@.innerHTML)
   d.on 'change.tabloid', '#tabloid input', -> Tabloid.draw()
+  d.on 'clidk.tabloid', '#tabloid #images img', -> Upload.drawImage($context, @)
 
 # this will fire once the required scripts have been loaded
 $ ->
