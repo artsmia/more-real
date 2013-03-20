@@ -38,9 +38,12 @@
   margin-right: 1em;
 }
 #tabloid .p4 .save {
-  margin: -2em auto 0 auto;
+  margin: 0px auto;
   width: 317px;
   text-align: center;
+}
+#tabloid .p4 .save a {
+	cursor:pointer;
 }
 #tabloid .save p { text-indent: 0; padding-bottom: 0; }
 #tabloid #upload { margin-left: 1em; }
@@ -59,6 +62,11 @@
   visibility: hidden;
   opacity: 0;
   background: rgba(0, 0, 0, 0.5);
+  transition:opacity linear 1s;
+  -webkit-transition:opacity linear 1s;
+  -moz-transition:opacity linear 1s;
+  -o-transition:opacity linear 1s;
+  -ms-transition:opacity linear 1s;
 }
 .tabloid-active .tabloid-cover {
   visibility: visible;

@@ -127,9 +127,17 @@
                 <img src="images/tabloid.png">
                 <p id="headline" contenteditable="true">Art is Over. Zoos are in!</p>
               </div>
-              <input id="upload" type="file">
+              <div id="upload_wrap">
+		<a class="button">
+		Upload an image
+		<input id="upload" type="file">
+                </a>
+              </div>
               <div class="save">
-                <button>Save and share</button>
+		<a class="button">
+                Save and share
+                <button></button>
+                </a>
               </div>
               <p id="link"></p>
             </section>
@@ -154,7 +162,7 @@
           </div>
           <div class="page page5">
             <section id="gallery"></section>
-            <p><a href="/more-real/truthiness/">See More Tabloids</a></p>
+            <a class="button" id="tabloid_see_more" href="/more-real/truthiness/">See More Tabloids</a>
             <script>$(function() { FirebaseStorage.gallery_init(9) })</script>
           </div>
         </div><!-- flipbook -->

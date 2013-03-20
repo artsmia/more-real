@@ -21,7 +21,7 @@
       <img src="/more-real/images/MR-title.png" alt="More Real? Art in the Age of Truthiness" />
       <nav class="row clearfix" id="nav">
         <ul class="navL">
-          <li><a href="/more-real/index.html#about">About the Exhibition</a></li>
+          <li><a href="/more-real/index.html#about">Back to <strong>MORE REAL</strong></a></li>
           <li><a href="/more-real/index.html#tabloid">Write your own headline</a></li>
         </ul>
       </nav>

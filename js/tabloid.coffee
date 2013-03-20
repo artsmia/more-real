@@ -252,7 +252,7 @@ setup = ->
   Tabloid.draw()
 
   d = $(document)
-  d.on 'click.tabloid', '#tabloid button', -> Tabloid.flip()
+  d.on 'click.tabloid', '#tabloid .save .button', -> Tabloid.flip()
   d.on 'click.tabloid', '#tabloid #social a', (e) -> Share.init(e, @)
   d.on 'keyup.tabloid', '#tabloid p', -> Tabloid.setHeadline(@.innerHTML)
   d.on 'change.tabloid', '#tabloid input', -> Tabloid.reset_with_uploaded_image()
