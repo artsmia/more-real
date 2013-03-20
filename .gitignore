@@ -2,3 +2,4 @@
 s3.config.php
 js/*.map
 js/tabloid.js
+tmp/*
