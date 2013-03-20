@@ -210,10 +210,13 @@
         Gallery.isotope();
         $body.addClass('tabloid-active');
       });
-      $flip.bind("first", function() {
-        console.log("first page");
-        $body.removeClass('tabloid-active');
+      $flip.bind("start", function() {
+        $body.addClass('tabloid-active');
+        $("#tabloid").on('mouseleave.tabloid', function() {
+          if($flip.turn('page') == 1) $body.removeClass('tabloid-active');
+        });
       });
+      $flip.bind("first", function() { $body.removeClass('tabloid-active'); });
 
       var $body = $('body');
       var page;
