@@ -26,8 +26,7 @@
         </ul>
       </nav>
       <h1>Write your own reality</h1>
-      <p>What is real? How do you define real? If you're talking about what you can feel, what you can smell, what you can taste and see, then real is simply electrical signals interpreted by your brain. This is the world that you know. The world as it was at the end of the twentieth century. It exists now only as part of a neural-interactive simulation that we call the Matrix.</p>
-    </aside>
+<p>Does the news make the paper, or vice versa? Click <a href="http://localhost/more-real/index.html#tabloid">here</a> to write your own reality by taking over the front page of <em>Truthiness</em>. Upload an image or select one below, pen your headline, then share your creation with the world!</p></aside>
     <section id="gallery"></section>
     <script>$(function() { FirebaseStorage.gallery_init() })</script>
   </body>
