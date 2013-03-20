@@ -107,8 +107,17 @@ window.Tabloid =
   reset: ->
     $canvas.width = $canvas.width # this clears the canvas somehow
     $cover_image[0].src = "images/tabloid.png"
-    $context.drawImage($cover_image[0], 0, 0)
     @prepareCanvas()
+
+  reset_with_uploaded_image: ->
+    $('#images img').removeClass('selected')
+    Tabloid.reset()
+    setTimeout (-> Tabloid.draw(null)), 100
+
+  reset_with_collection_image: (img) ->
+    $(img).addClass('selected')
+    Tabloid.reset()
+    Upload.drawImage($context, img)
 
   save: ->
     Gallery.push(@headline())
@@ -131,8 +140,9 @@ window.Tabloid =
   flip: -> $('#flipbook').turn('next')
 
 window.Upload =
-  files: -> $("#tabloid #upload")[0].files
-  file: -> @files()[0]
+  uploaded_files: -> $("#tabloid #upload")[0].files
+  collection_image: -> $("#images img.selected")[0]
+  file: -> @collection_image() || @uploaded_files()[0]
 
   readImage: ->
     _img = document.createElement('img')
@@ -153,7 +163,6 @@ window.Upload =
     $social.data('url', null)
 
   drawImage: (context=$context, img) ->
-    Tabloid.reset()
     Tabloid.draw(null, false)
     if img
       context.drawImage(img, 80, 454, 236, 236)
@@ -241,8 +250,8 @@ setup = ->
   d.on 'click.tabloid', '#tabloid button', -> Tabloid.flip()
   d.on 'click.tabloid', '#tabloid #social a', (e) -> Share.init(e, @)
   d.on 'keyup.tabloid', '#tabloid p', -> Tabloid.setHeadline(@.innerHTML)
-  d.on 'change.tabloid', '#tabloid input', -> Tabloid.draw()
-  d.on 'clidk.tabloid', '#tabloid #images img', -> Upload.drawImage($context, @)
+  d.on 'change.tabloid', '#tabloid input', -> Tabloid.reset_with_uploaded_image()
+  d.on 'click.tabloid', '#tabloid #images img', -> Tabloid.reset_with_collection_image(@)
 
 # this will fire once the required scripts have been loaded
 $ ->
