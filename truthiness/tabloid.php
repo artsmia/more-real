@@ -1,8 +1,18 @@
 <?
-require('firebaseLib.php');
-$fb = new fireBase('https://more-real.firebaseio.com/tabloids');
-$response = $fb->get($_GET['id']);
-$tabloid = json_decode($response);
+$url = 'https://more-real.firebaseio.com/tabloids/' . $_GET['id'] . '.json';
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_TIMEOUT, 20);
+curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+$response = curl_exec($ch);
+curl_close($ch);
+
+preg_match('/"cover"."(.*)","headline"."(.*)"/', $response, $matches);
+$src = $matches[1];
+$headline = $matches[2];
 ?>
 <html>
   <head>
@@ -23,8 +33,8 @@ $tabloid = json_decode($response);
   </head>
 <body>
   <figure id="gallery">
-    <img src="<?php echo $tabloid->cover; ?>">
-    <figcaption><?php echo $tabloid->headline; ?></figcaption>
+    <img src="<?php echo $src; ?>">
+    <figcaption><?php echo $headline; ?></figcaption>
   </figure>
   <aside>
     <img src="/more-real/images/MR-title.png" alt="More Real? Art in the Age of Truthiness" />
