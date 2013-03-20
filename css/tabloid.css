@@ -57,6 +57,23 @@
   visibility: visible;
   opacity: 1;
 }
+
+body:not(.tabloid-active) .top-level{
+	z-index:3;
+	position:relative;
+	background-color:#fff;
+}
+#tabloid{
+	z-index:-10;
+}
+
+#tabloid:hover{
+	z-index:4;
+}
+
+body.tabloid-active .top-level{
+	position:static;
+}
 body.tabloid-active .icons {
   display: none;
 }
