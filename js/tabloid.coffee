@@ -39,7 +39,7 @@ window.FirebaseStorage =
     $gallery = $("#gallery")
     if snap.val() && snap.val().cover
       return if $gallery.find("a[href*=#{snap.name()}]").length
-      fig = $("""<figure><a href="tabloid.php?id=#{snap.name().replace(/\s/, '')}"><img src="#{snap.val().cover}"></a></figure>""")
+      fig = $("""<figure><a href="/more-real/truthiness/tabloid.php?id=#{snap.name().replace(/\s/, '')}"><img src="#{snap.val().cover}"></a></figure>""")
       $gallery.prepend(fig)
 
 window.Gallery =
