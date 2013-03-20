@@ -37,7 +37,7 @@
 #tabloid .save p { text-indent: 0; padding-bottom: 0; }
 #tabloid #upload { margin-left: 1em; }
 
-#tabloid {
+#tabloid, #flipbook {
   z-index: 2;
   position: relative;
 }
@@ -51,24 +51,14 @@
   visibility: hidden;
   opacity: 0;
   background: rgba(0, 0, 0, 0.5);
-  /* -webkit-filter: grayscale(0.7) blur(2px); */
 }
 .tabloid-active .tabloid-cover {
   visibility: visible;
   opacity: 1;
 }
-
-body:not(.tabloid-active) .top-level{
-	z-index:3;
-	position:relative;
-	background-color:#fff;
-}
-#tabloid{
-	z-index:-10;
-}
-
-#tabloid:hover{
-	z-index:4;
+.top-level {
+  z-index: 5;
+  position: relative;
 }
 
 body.tabloid-active .top-level{
