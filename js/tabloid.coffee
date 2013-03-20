@@ -99,7 +99,7 @@ window.Tabloid =
     ctx.fillText(line, x, y, maxWidth)
 
   draw: (headline, image=true) ->
-    Upload.drawImage($context) if Upload.file() && image
+    Upload.drawImage() if Upload.file() && image
     $context.drawImage($cover_image[0], 0, 0)
     headline ?= Tabloid.headline()
     Tabloid.wrap_text($context, headline, 360, 167, 555, 71)
@@ -112,12 +112,17 @@ window.Tabloid =
   reset_with_uploaded_image: ->
     $('#images img').removeClass('selected')
     Tabloid.reset()
-    setTimeout (-> Tabloid.draw(null)), 100
+    setTimeout (-> Tabloid.draw(null)), 50
 
   reset_with_collection_image: (img) ->
+    return unless img ?= $('#images img.selected')?[0]
+    console.log img
     $(img).addClass('selected')
     Tabloid.reset()
-    Upload.drawImage($context, img)
+    setTimeout (->
+      Tabloid.draw(null)
+      Upload.drawImage(img)
+    ), 50
 
   save: ->
     Gallery.push(@headline())
@@ -162,15 +167,15 @@ window.Upload =
     $(".source img")[0].src = canvas.toDataURL()
     $social.data('url', null)
 
-  drawImage: (context=$context, img) ->
+  drawImage: (img) ->
     Tabloid.draw(null, false)
     if img
-      context.drawImage(img, 80, 454, 236, 236)
+      $context.drawImage(img, 80, 454, 236, 236)
       Upload.replaceSourceImage(img)
     else
       @readImage().done (img) ->
         # draw `img` at coordinate 80,454 (x,y from top left), resized to 236x236
-        context.drawImage(img, 80, 454, 236, 236)
+        $context.drawImage(img, 80, 454, 236, 236)
         Upload.replaceSourceImage(img)
 
 window.S3 =
