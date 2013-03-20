@@ -45,7 +45,7 @@
 #tabloid .save p { text-indent: 0; padding-bottom: 0; }
 #tabloid #upload { margin-left: 1em; }
 
-#tabloid {
+#tabloid, #flipbook {
   z-index: 2;
   position: relative;
 }
@@ -59,11 +59,18 @@
   visibility: hidden;
   opacity: 0;
   background: rgba(0, 0, 0, 0.5);
-  /* -webkit-filter: grayscale(0.7) blur(2px); */
 }
 .tabloid-active .tabloid-cover {
   visibility: visible;
   opacity: 1;
+}
+.top-level {
+  z-index: 5;
+  position: relative;
+}
+
+body.tabloid-active .top-level{
+	position:static;
 }
 body.tabloid-active .icons {
   display: none;

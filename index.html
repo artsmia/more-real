@@ -84,18 +84,18 @@
 			<div class="twelvecol" style="padding:0 0.75em;margin-bottom:2em;">
 				<div id="promovid" style="margin:0 auto;text-align:center;padding-right:1.5em;"><iframe style="border:1px solid #ccc;" src="http://player.vimeo.com/video/44136974?portrait=0&amp;color=4caf45" width="800" height="450" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
 			</div>
-			<div class="sixcol">
+			<div class="sixcol top-level">
 				<h1>Seeing is Disbelieving</h1>
-				<p style="text-indent:4em;">Over the past century, a period of unprecedented technological change and global social upheaval, once agreed-upon beliefs, or &#8220;truths,&#8221; have been cast into doubt, changing and shaping our understanding and experience of reality. <em>More Real? Art in the Age of Truthiness</em> features work by 28 of today's most accomplished and promising international artists, including Ai Weiwei, Vik Muniz and Thomas Demand, who explore our shifting experience of reality.</p>
-				<p>This exhibition is organized by the Minneapolis Institute of Arts in partnership with SITE Santa Fe.</p>
-				<p>Generous support provided by The Andy Warhol Foundation for the Visual Arts.</p>
-				<p>Additional support provided by the <a href="http://artsmia.org/index.php?section_id=446">MIA Contemporary Art Affinity Group</a>, Reid and Ann MacDonald, and &Eacute;tant donn&eacute;s, the French-American Fund for Contemporary Art.</p>
-				<p>This project is made possible by a grant from:&#8194;<img src="images/IMLS_Logo_Black.png" alt="U.S. Institute of Museum and Library Services" style="width:154px;height:61px;vertical-align:middle;" /></p>
-				<p style="text-align:center;"><img src="images/Delta_OfficialAirline.png" alt="Official Airline: Delta" style="width:144px;height:46px;margin:0 auto;" /></p>
-				<a class="button" href="press.html" style="margin:0 1em 1em;">More Real? in the Press</a>
+                    <p style="text-indent:4em;">Over the past century, a period of unprecedented technological change and global social upheaval, once agreed-upon beliefs, or &#8220;truths,&#8221; have been cast into doubt, changing and shaping our understanding and experience of reality. <em>More Real? Art in the Age of Truthiness</em> features work by 28 of today's most accomplished and promising international artists, including Ai Weiwei, Vik Muniz and Thomas Demand, who explore our shifting experience of reality.</p>
+                    <p>This exhibition is organized by the Minneapolis Institute of Arts in partnership with SITE Santa Fe.</p>
+                    <p>Generous support provided by The Andy Warhol Foundation for the Visual Arts.</p>
+                    <p>Additional support provided by the <a href="http://artsmia.org/index.php?section_id=446">MIA Contemporary Art Affinity Group</a>, Reid and Ann MacDonald, and &Eacute;tant donn&eacute;s, the French-American Fund for Contemporary Art.</p>
+                    <p>This project is made possible by a grant from:&#8194;<img src="images/IMLS_Logo_Black.png" alt="U.S. Institute of Museum and Library Services" style="width:154px;height:61px;vertical-align:middle;" /></p>
+                    <p style="text-align:center;"><img src="images/Delta_OfficialAirline.png" alt="Official Airline: Delta" style="width:144px;height:46px;margin:0 auto;" /></p>
+                    <a class="button" href="press.html" style="margin:0 1em 1em;">More Real? in the Press</a>
 			</div>
 
-      <div id="tabloid" class="sixcol last">
+      <div id="tabloid" class="sixcol last low-level">
         <div id="flipbook" class="clearfix">
           <div class="page page1">
             <img src="images/tabloid_mockup1.jpg" />
@@ -218,10 +218,13 @@
         Gallery.isotope();
         $body.addClass('tabloid-active');
       });
-      $flip.bind("first", function() {
-        console.log("first page");
-        $body.removeClass('tabloid-active');
+      $flip.bind("start", function() {
+        $body.addClass('tabloid-active');
+        $("#tabloid").on('mouseleave.tabloid', function() {
+          if($flip.turn('page') == 1) $body.removeClass('tabloid-active');
+        });
       });
+      $flip.bind("first", function() { $body.removeClass('tabloid-active'); });
 
       var $body = $('body');
       var page;
