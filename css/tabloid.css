@@ -132,3 +132,10 @@ figure#gallery img {
 #tabloid .p5 #gallery { width: 100%; float: none; min-height: 0; }
 #tabloid .p5 #gallery figure { width: 33%; }
 #tabloid .p5 p { text-align: center; }
+
+/** === don't show tabloid on iphone === **/
+#tabloid .small-screen { display: none; text-align: center; }
+@media only screen and (max-width: 481px) {
+  #tabloid .small-screen { display: block; }
+  #flipbook { display: none; }
+}
