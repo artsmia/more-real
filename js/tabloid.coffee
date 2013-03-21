@@ -141,7 +141,9 @@ window.Tabloid =
   headline: -> $p.text()
 
   debug: -> $('#tabloid .generated').toggle()
-  flip: -> $('#flipbook').turn('next')
+  flip: ->
+    Tabloid.setHeadline($p.text())
+    $('#flipbook').turn('next')
 
 window.Upload =
   uploaded_files: -> FileReader? && $("#tabloid #upload")[0].files
@@ -254,7 +256,6 @@ setup = ->
   d = $(document)
   d.on 'click.tabloid', '#tabloid .save .button', -> Tabloid.flip()
   d.on 'click.tabloid', '#tabloid #social a', (e) -> Share.init(e, @)
-  d.on 'keyup.tabloid', '#tabloid p', -> Tabloid.setHeadline(@.innerHTML)
   d.on 'change.tabloid', '#tabloid input', -> Tabloid.reset_with_uploaded_image()
   d.on 'click.tabloid', '#tabloid #images img', -> Tabloid.reset_with_collection_image(@)
 
