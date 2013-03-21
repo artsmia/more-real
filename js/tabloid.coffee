@@ -144,7 +144,7 @@ window.Tabloid =
   flip: -> $('#flipbook').turn('next')
 
 window.Upload =
-  uploaded_files: -> $("#tabloid #upload")[0].files
+  uploaded_files: -> FileReader? && $("#tabloid #upload")[0].files
   collection_image: -> $("#images img.selected")[0]
   file: -> @collection_image() || @uploaded_files()[0]
 
@@ -172,6 +172,7 @@ window.Upload =
       $context.drawImage(img, 80, 454, 236, 236)
       Upload.replaceSourceImage(img)
     else
+      return unless FileReader?
       @readImage().done (img) ->
         # draw `img` at coordinate 80,454 (x,y from top left), resized to 236x236
         $context.drawImage(img, 80, 454, 236, 236)
