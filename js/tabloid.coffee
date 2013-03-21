@@ -116,7 +116,6 @@ window.Tabloid =
 
   reset_with_collection_image: (img) ->
     return unless img ?= $('#images img.selected')?[0]
-    console.log img
     $(img).addClass('selected')
     Tabloid.reset()
     setTimeout (->

@@ -12,7 +12,11 @@
   $expires = time() + $EXPIRE_TIME;
   $amzHeaders= "x-amz-acl:public-read";
   $stringToSign = "PUT\n\n$mimeType\n$expires\n$amzHeaders\n$S3_BUCKET$objectName";
-  $sig = urlencode(base64_encode(mhash(MHASH_SHA1, $stringToSign, $S3_SECRET)));
+  if(function_exists('mhash')) {
+    $sig = urlencode(base64_encode(mhash(MHASH_SHA1, $stringToSign, $S3_SECRET)));
+  } else {
+    $sig = urlencode(base64_encode(hash_hmac('sha1', $stringToSign, $S3_SECRET, true)));
+  }
 
   $url = urlencode("$S3_URL$S3_BUCKET$objectName?AWSAccessKeyId=$S3_KEY&Expires=$expires&Signature=$sig");
 

@@ -1,5 +1,6 @@
 #tabloid .generated, #tabloid .generated canvas {
-  max-width: 100%
+  width: 480px;
+  height: 564px;
 }
 
 #tabloid .source {
