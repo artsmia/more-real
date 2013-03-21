@@ -226,7 +226,7 @@ h2 {
 	color:#4caf45;
 	/*background-color:yellow;*/
 	font-size:1.2em;
-	font-weight:100;
+	font-weight:300; /* Revised from 100 to fix XP Chrome display issue */
 	-webkit-transition: color 150ms linear;
 	-moz-transition: color 150ms linear;
 	-ms-transition: color 150ms linear;
@@ -277,7 +277,7 @@ h2 {
 	text-align:center;
 	margin:0;
 	padding:5px 0 0 0;
-	font-weight:100;
+	font-weight:300; /* Revised from 100 to fix XP Chrome display issue */
 	font-style:italic;
 	display:block;
 	color:#fff;
@@ -289,7 +289,7 @@ h2 {
 .dates {
 	text-align:center;
 	margin:1em 0 0 0;
-	font-weight:100;
+	font-weight:300; /* Revised from 100 to fix XP Chrome display issue */
 	font-style:italic;
 	display:block;
 	color:#fff;
@@ -348,7 +348,7 @@ h2 {
 	padding:0.5em 0 0.1em 0;
 	width:90%;
 	font-family: "garamond-premier-pro-display",serif;
-	font-weight:100;
+	font-weight:300; /* Revised from 100 to fix XP Chrome display issue */
 	letter-spacing: 0.15em;
 	text-align:center;
 	/*margin-bottom:2em;*/
